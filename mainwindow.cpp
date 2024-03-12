@@ -3,7 +3,7 @@
 #include <iostream>
 #include <random>
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow( QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
@@ -26,98 +26,6 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-
-void MainWindow::on_startButton_clicked()
-{
-    ui->blueButton->setEnabled(true);
-    ui->redButton->setEnabled(true);
-    ui->startButton->setEnabled(false);
-    add_to_pattern();
-    playSequence();
-}
-
-
-void MainWindow::on_redButton_clicked()
-{
-    //Used to test button responsiveness
-    //TODO: Remove before turn in
-    ui->testSeqLabel->setText(ui->testSeqLabel->text()+= '0');
-    usersSeq += '0';
-    std::cout<<"Your Sequence: "<<usersSeq<<"\t"<<"correct Sequence: "<<simonsSeq<<std::endl;
-    //Checks if the user clicked the right button
-    if(simonsSeq.at(usersSeqIndex)=='0')
-    {
-        std::cout<<simonsSeq.size()<<"    "<<usersSeqIndex+1<<std::endl;
-        //If the last button pressed was the end of the pattern
-        if(static_cast<int>(simonsSeq.size())== usersSeqIndex+1)
-        {//Successful run with patern
-            //Add to the pattern
-            add_to_pattern();
-            //remove the users' pattern so far
-            usersSeq="";
-            usersSeqIndex =0;
-            //Call the simon Pattern Display
-            playSequence();
-
-        }
-
-        usersSeqIndex++;
-        return;
-    }
-    else
-    {
-        ui->blueButton->setEnabled(false);
-        ui->redButton->setEnabled(false);
-        ui->startButton->setEnabled(true);
-        simonsSeq="";
-        usersSeq="";
-        usersSeqIndex = 0;
-        simonsSeqIndex = 0;
-        //Game over pop-up
-        return;
-    }
-}
-
-
-void MainWindow::on_blueButton_clicked()
-{
-    ui->testSeqLabel->setText(ui->testSeqLabel->text()+= '1');
-    usersSeq += '1';
-    std::cout<<"Your Sequence: "<<usersSeq<<"\t"<<"correct Sequence: "<<simonsSeq<<std::endl;
-    //Checks if the user clicked the right button
-    if(simonsSeq.at(usersSeqIndex) == '1')
-    {
-        std::cout<<simonsSeq.size()<<"    "<<usersSeqIndex+1<<std::endl;
-        //If the last button pressed was the end of the pattern
-        if(static_cast<int>(simonsSeq.size())== usersSeqIndex+1)
-        {//Successful run with patern
-            //Add to the pattern
-            add_to_pattern();
-            //remove the users' pattern so far
-            usersSeq="";
-            usersSeqIndex =0;
-            //Call the simon Pattern Display
-            playSequence();
-            //increase score
-        }
-
-        usersSeqIndex++;
-        return;
-    }
-    else
-    {
-        ui->blueButton->setEnabled(false);
-        ui->redButton->setEnabled(false);
-        ui->startButton->setEnabled(true);
-        simonsSeq ="";
-        usersSeq = "";
-        usersSeqIndex = 0;
-        simonsSeqIndex = 0;
-        //Game over pop-up
-        return;
-    }
-}
-
 
 void MainWindow::playSequence()
 {
@@ -167,9 +75,3 @@ void MainWindow::add_to_pattern()
     std::string newRandomGeneratedChar = std::to_string(random_number);
     simonsSeq += newRandomGeneratedChar;
 }
-
-void MainWindow::on_seqTestButton_clicked()
-{
-    playSequence();
-}
-
