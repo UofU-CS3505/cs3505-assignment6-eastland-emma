@@ -8,15 +8,12 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    //int next = std::rand()%2;
-    //char nextChar = next + 48;//Converts the int zero to 48 or the int one to 49 for ascii usage
 
     //Set up the input strings for the simon cpu and the user
-    //simonsSeq+=nextChar;
-
-    simonsSeq = "0001010111";  //TESTING PURPOSES ONLY: I AM USING THIS TO TEST THE SIMON LIGHT UP FEATURE
+    simonsSeq = "";
     usersSeq="";
 
+    usersSeqIndex=0;
     //Set up timer to trigger the simon light up effect
     timer = new QTimer(this);
     connect(timer,
@@ -35,6 +32,8 @@ void MainWindow::on_startButton_clicked()
     ui->blueButton->setEnabled(true);
     ui->redButton->setEnabled(true);
     ui->startButton->setEnabled(false);
+    add_to_pattern();
+    playSequence();
 }
 
 
@@ -44,22 +43,36 @@ void MainWindow::on_redButton_clicked()
     //TODO: Remove before turn in
     ui->testSeqLabel->setText(ui->testSeqLabel->text()+= '0');
     usersSeq += '0';
-    usersSeqIndex++;
+    std::cout<<"Your Sequence: "<<usersSeq<<"\t"<<"correct Sequence: "<<simonsSeq<<std::endl;
     //Checks if the user clicked the right button
-    if(usersSeq[usersSeqIndex]==simonsSeq[usersSeqIndex])
+    if(simonsSeq.at(usersSeqIndex)=='0')
     {
+        std::cout<<simonsSeq.size()<<"    "<<usersSeqIndex+1<<std::endl;
         //If the last button pressed was the end of the pattern
-        if(static_cast<int>(simonsSeq.size())== usersSeqIndex)
+        if(static_cast<int>(simonsSeq.size())== usersSeqIndex+1)
         {//Successful run with patern
             //Add to the pattern
-            simonsSeq = add_to_pattern(simonsSeq);
-            //Call the simon Pattern Display
+            add_to_pattern();
             //remove the users' pattern so far
+            usersSeq="";
+            usersSeqIndex =0;
+            //Call the simon Pattern Display
+            playSequence();
+
         }
+
+        usersSeqIndex++;
         return;
     }
     else
     {
+        ui->blueButton->setEnabled(false);
+        ui->redButton->setEnabled(false);
+        ui->startButton->setEnabled(true);
+        simonsSeq="";
+        usersSeq="";
+        usersSeqIndex = 0;
+        simonsSeqIndex = 0;
         //Game over pop-up
         return;
     }
@@ -70,22 +83,36 @@ void MainWindow::on_blueButton_clicked()
 {
     ui->testSeqLabel->setText(ui->testSeqLabel->text()+= '1');
     usersSeq += '1';
-    usersSeqIndex++;
+    std::cout<<"Your Sequence: "<<usersSeq<<"\t"<<"correct Sequence: "<<simonsSeq<<std::endl;
     //Checks if the user clicked the right button
-    if(usersSeq[usersSeqIndex]==simonsSeq[usersSeqIndex])
+    if(simonsSeq.at(usersSeqIndex) == '1')
     {
+        std::cout<<simonsSeq.size()<<"    "<<usersSeqIndex+1<<std::endl;
         //If the last button pressed was the end of the pattern
-        if(static_cast<int>(simonsSeq.size())== usersSeqIndex)
+        if(static_cast<int>(simonsSeq.size())== usersSeqIndex+1)
         {//Successful run with patern
             //Add to the pattern
-            simonsSeq = add_to_pattern(simonsSeq);
-            //Call the simon Pattern Display
+            add_to_pattern();
             //remove the users' pattern so far
+            usersSeq="";
+            usersSeqIndex =0;
+            //Call the simon Pattern Display
+            playSequence();
+            //increase score
         }
+
+        usersSeqIndex++;
         return;
     }
     else
     {
+        ui->blueButton->setEnabled(false);
+        ui->redButton->setEnabled(false);
+        ui->startButton->setEnabled(true);
+        simonsSeq ="";
+        usersSeq = "";
+        usersSeqIndex = 0;
+        simonsSeqIndex = 0;
         //Game over pop-up
         return;
     }
@@ -94,48 +121,51 @@ void MainWindow::on_blueButton_clicked()
 
 void MainWindow::playSequence()
 {
+
+    std::cout<<"New Sequence: "<<simonsSeq<<std::endl;
     ui->redButton->setEnabled(false);
     ui->blueButton->setEnabled(false);
     simonsSeqIndex = 0;
-    timer->start(500);
+    timer->start(1000);
 
 }
 
 void MainWindow::scheduledLightCallback()
 {
-
+    ui->redButton->setStyleSheet( QString("QPushButton::!enabled {background-color: rgb(119,119,119);} QPushButton{border:none;background-color:rgb(119, 119, 119);border-radius:85px;}} QPushButton:enabled{border:none; background-color:rgb(255, 0, 0); border-radius:85px;} QPushButton:pressed {border-radius:70px; background-color:rgb(119, 119, 119);}"));
+    ui->blueButton->setStyleSheet( QString("QPushButton::!enabled {background-color: rgb(119,119,119);} QPushButton{border:none;background-color:rgb(119, 119, 119);border-radius:85px;}} QPushButton:enabled{border:none; background-color:rgb(0, 0, 255); border-radius:85px;} QPushButton:pressed {border-radius:70px; background-color:rgb(119, 119, 119);}"));
     if(simonsSeqIndex >= simonsSeq.length())
     {
         timer->stop();
-        std::cout<<"finished";
+
+        ui->redButton->setEnabled(true);
+        ui->blueButton->setEnabled(true);
         return;
     }
-    std::cout<<simonsSeq[simonsSeqIndex];
     if(simonsSeq[simonsSeqIndex]=='0')
     {
         //light redButton
-        ui->redLight->setEnabled(true);
-        ui->redLight->setEnabled(false);
+        ui->redButton->setStyleSheet( QString("QPushButton::!enabled {background-color: rgb(255,0,0);} QPushButton{border:none;background-color:rgb(255, 119, 119);border-radius:85px;}} QPushButton:enabled{border:none; background-color:rgb(255, 0, 0); border-radius:85px;} QPushButton:pressed {border-radius:70px; background-color:rgb(255, 119, 119);}"));
+        ui->blueButton->setStyleSheet( QString("QPushButton::!enabled {background-color: rgb(119,119,255);} QPushButton{border:none;background-color:rgb(119, 119, 255);border-radius:85px;}} QPushButton:enabled{border:none; background-color:rgb(0, 0, 255); border-radius:85px;} QPushButton:pressed {border-radius:70px; background-color:rgb(119, 119, 255);}"));
     }
     else
     {
         //light blue button
-        ui->blueButton->setEnabled(true);
-        ui->blueButton->setEnabled(false);
+        ui->redButton->setStyleSheet( QString("QPushButton::!enabled {background-color: rgb(255,119,119);} QPushButton{border:none;background-color:rgb(255, 119, 119);border-radius:85px;}} QPushButton:enabled{border:none; background-color:rgb(255, 0, 0); border-radius:85px;} QPushButton:pressed {border-radius:70px; background-color:rgb(255, 119, 119);}"));
+        ui->blueButton->setStyleSheet( QString("QPushButton::!enabled {background-color: rgb(0,0,255);} QPushButton{border:none;background-color:rgb(119, 119, 255);border-radius:85px;}} QPushButton:enabled{border:none; background-color:rgb(0, 0, 255); border-radius:85px;} QPushButton:pressed {border-radius:70px; background-color:rgb(119, 119, 255);}"));
     }
     simonsSeqIndex++;
 }
 
 // //Adds a 1 or 0 at the end of the string (pattern) as the player is advancing through
-std::string MainWindow::add_to_pattern(std::string currentPattern)
+void MainWindow::add_to_pattern()
 {
     std::random_device rd;
     std::mt19937 rng(rd());
     std::uniform_int_distribution<int> distribution(0, 1);
     int random_number = distribution(rng);
     std::string newRandomGeneratedChar = std::to_string(random_number);
-    currentPattern = currentPattern + newRandomGeneratedChar;
-    return currentPattern;
+    simonsSeq += newRandomGeneratedChar;
 }
 
 void MainWindow::on_seqTestButton_clicked()

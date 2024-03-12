@@ -53,6 +53,6 @@ private:
     void scheduledLightCallback();
 
     ///@brief adds a new character, either '1' or '0', to the existing simon's sequence
-    std::string add_to_pattern(std::string currentPattern);
+    void add_to_pattern();
 };
 #endif // MAINWINDOW_H
