@@ -19,10 +19,12 @@ public slots:
     void handle_startButton_signal();
     void handle_testseqButton_signal();
 
+
 signals:
-    void turn_redLight();
-    void turn_blueLight();
-    void finish_display_sequence();
+    void turn_redLight_signal();
+    void turn_blueLight_signal();
+    void finish_display_sequence_signal();
+    void lose_screen_signal();
 
 private:
     Ui::MainWindow *ui;

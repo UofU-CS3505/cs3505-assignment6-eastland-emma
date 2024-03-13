@@ -43,16 +43,29 @@ void MainWindow::on_blueButton_clicked()
 {
     emit on_blueButton_clicked_signal();
     std::cout<<"signal sent for blue button"<<std::endl;
-
 }
 
 void MainWindow::on_seqTestButton_clicked()
 {
     emit on_seqTestButton_clicked_signal();
     std::cout<<"signal sent for seqTest button"<<std::endl;
-
 }
 
+void MainWindow::handler_turn_red_Lights()
+{
+    std::cout<<"Turning on red lights"<<std::endl;
+}
+
+void MainWindow::handler_turn_blue_Lights()
+{
+    std::cout<<"Turning on blue lights"<<std::endl;
+
+}
+void MainWindow::handler_lose_Screen()
+{
+    std::cout<<"lose screen"<<std::endl;
+
+}
 void MainWindow::scheduledLightCallback()
 {
     ui->redButton->setStyleSheet( QString("QPushButton::!enabled {background-color: rgb(119,119,119);} QPushButton{border:none;background-color:rgb(119, 119, 119);border-radius:85px;}} QPushButton:enabled{border:none; background-color:rgb(255, 0, 0); border-radius:85px;} QPushButton:pressed {border-radius:70px; background-color:rgb(119, 119, 119);}"));

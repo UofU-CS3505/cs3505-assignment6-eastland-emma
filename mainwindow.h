@@ -18,6 +18,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow( QWidget *parent = nullptr);
     ~MainWindow();
+    void handler_turn_red_Lights();
+    void handler_turn_blue_Lights();
+    void handler_lose_Screen();
 
 public slots:
     ///REMOVE BEFORE TURN IN

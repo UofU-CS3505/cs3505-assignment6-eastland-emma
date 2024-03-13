@@ -11,7 +11,7 @@ Model::Model(QWidget *parent)
     ui->setupUi(this);
 
     //Set up the input strings for the simon cpu and the user
-    simonsSeq = "";
+    simonsSeq = "001";
     usersSeq="";
     usersSeqIndex=0;
     timer = new QTimer(this);
@@ -34,15 +34,15 @@ void Model::start_sequence()
     {
         if(simonsSeqIndex >= simonsSeq.length())
         {
-            emit finish_display_sequence();
+            emit finish_display_sequence_signal();
         }
         if(c =='1')
         {
-            emit turn_blueLight();
+            emit turn_blueLight_signal();
         }
         if(c== '0')
         {
-            emit turn_redLight();
+            emit turn_redLight_signal();
         }
     }
 }
@@ -64,6 +64,7 @@ void Model::handle_startButton_signal()
     std::cout<<"start button pressed"<<std::endl;
     add_to_pattern();
 }
+
 void Model::handle_testseqButton_signal()
 {
     std::cout<<"test seq button pressed"<<std::endl;
