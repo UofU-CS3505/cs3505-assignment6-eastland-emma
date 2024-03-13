@@ -6,6 +6,9 @@
 #include <QWidget>
 #include <QKeyEvent>
 
+/*Assignment 06 CS350
+ * 
+ */
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
