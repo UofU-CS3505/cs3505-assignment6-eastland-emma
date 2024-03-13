@@ -1,4 +1,5 @@
 #include "model.h"
+#include "qtimer.h"
 #include "ui_mainwindow.h"
 #include <iostream>
 #include <random>
@@ -13,25 +14,8 @@ Model::Model(QWidget *parent)
     simonsSeq = "";
     usersSeq="";
     usersSeqIndex=0;
-    connect(ui->startButton,
-            &QAbstractButton::clicked,
-            this,
-            &Model::on_startButton_clicked);
+    timer = new QTimer(this);
 
-    connect(ui->blueButton,
-            &QAbstractButton::clicked,
-            this,
-            &Model::on_blueButton_clicked);
-
-    connect(ui->redButton,
-            &QAbstractButton::clicked,
-            this,
-            &Model::on_redButton_clicked);
-
-    connect(ui->seqTestButton,
-            &QAbstractButton::clicked,
-            this,
-            &Model::on_seqTestButton_clicked);
 }
 
 Model::~Model()
@@ -39,94 +23,51 @@ Model::~Model()
     delete ui;
 }
 
-void Model::on_startButton_clicked()
+void Model::start_sequence()
 {
-    ui->blueButton->setEnabled(true);
-    ui->redButton->setEnabled(true);
-    ui->startButton->setEnabled(false);
+    std::cout<<"New Sequence: "<<simonsSeq<<std::endl;
+    ui->redButton->setEnabled(false);
+    ui->blueButton->setEnabled(false);
+    simonsSeqIndex = 0;
+    timer->start(1000);
+    for(char c :simonsSeq)
+    {
+        if(simonsSeqIndex >= simonsSeq.length())
+        {
+            emit finish_display_sequence();
+        }
+        if(c =='1')
+        {
+            emit turn_blueLight();
+        }
+        if(c== '0')
+        {
+            emit turn_redLight();
+        }
+    }
+}
+void Model::handle_redButton_signal()
+{
+    //event handler for pressing the red button
+    std::cout<<"red button pressed"<<std::endl;
+}
+
+void Model::handle_blueButton_signal()
+{
+    //event handler for pressing the blue button
+    std::cout<<"blue button pressed"<<std::endl;
+}
+
+void Model::handle_startButton_signal()
+{
+    //event handler for pressing the start button
+    std::cout<<"start button pressed"<<std::endl;
     add_to_pattern();
-    emit on_startButton_clicked();
 }
-
-
-void Model::on_redButton_clicked()
+void Model::handle_testseqButton_signal()
 {
-    //Used to test button responsiveness
-    //TODO: Remove before turn in
-    ui->testSeqLabel->setText(ui->testSeqLabel->text()+= '0');
-    usersSeq += '0';
-    std::cout<<"Your Sequence: "<<usersSeq<<"\t"<<"correct Sequence: "<<simonsSeq<<std::endl;
-    //Checks if the user clicked the right button
-    if(simonsSeq.at(usersSeqIndex)=='0')
-    {
-        std::cout<<simonsSeq.size()<<"    "<<usersSeqIndex+1<<std::endl;
-        //If the last button pressed was the end of the pattern
-        if(static_cast<int>(simonsSeq.size())== usersSeqIndex+1)
-        {//Successful run with patern
-            //Add to the pattern
-            add_to_pattern();
-            //remove the users' pattern so far
-            usersSeq="";
-            usersSeqIndex =0;
-            //Call the simon Pattern Display
-            emit on_redButton_clicked_signal();
-        }
+    std::cout<<"test seq button pressed"<<std::endl;
 
-        usersSeqIndex++;
-        return;
-    }
-    else
-    {
-        ui->blueButton->setEnabled(false);
-        ui->redButton->setEnabled(false);
-        ui->startButton->setEnabled(true);
-        simonsSeq="";
-        usersSeq="";
-        usersSeqIndex = 0;
-        simonsSeqIndex = 0;
-        //Game over pop-up
-        return;
-    }
-}
-
-
-void Model::on_blueButton_clicked()
-{
-    ui->testSeqLabel->setText(ui->testSeqLabel->text()+= '1');
-    usersSeq += '1';
-    std::cout<<"Your Sequence: "<<usersSeq<<"\t"<<"correct Sequence: "<<simonsSeq<<std::endl;
-    //Checks if the user clicked the right button
-    if(simonsSeq.at(usersSeqIndex) == '1')
-    {
-        std::cout<<simonsSeq.size()<<"    "<<usersSeqIndex+1<<std::endl;
-        //If the last button pressed was the end of the pattern
-        if(static_cast<int>(simonsSeq.size())== usersSeqIndex+1)
-        {//Successful run with patern
-            //Add to the pattern
-            add_to_pattern();
-            //remove the users' pattern so far
-            usersSeq="";
-            usersSeqIndex =0;
-            //Call the simon Pattern Display
-            emit on_blueButton_clicked_signal();
-            //increase score
-        }
-
-        usersSeqIndex++;
-        return;
-    }
-    else
-    {
-        ui->blueButton->setEnabled(false);
-        ui->redButton->setEnabled(false);
-        ui->startButton->setEnabled(true);
-        simonsSeq ="";
-        usersSeq = "";
-        usersSeqIndex = 0;
-        simonsSeqIndex = 0;
-        //Game over pop-up
-        return;
-    }
 }
 
 // //Adds a 1 or 0 at the end of the string (pattern) as the player is advancing through
@@ -140,7 +81,4 @@ void Model::add_to_pattern()
     simonsSeq += newRandomGeneratedChar;
 }
 
-void Model::on_seqTestButton_clicked()
-{
-    emit on_seqTestButton_clicked_signal();
-}
+

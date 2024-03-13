@@ -10,10 +10,6 @@ MainWindow::MainWindow( QWidget *parent)
     ui->setupUi(this);
 
     //Set up the input strings for the simon cpu and the user
-    simonsSeq = "";
-    usersSeq="";
-
-    usersSeqIndex=0;
     //Set up timer to trigger the simon light up effect
     timer = new QTimer(this);
     connect(timer,
@@ -27,14 +23,33 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::playSequence()
+void MainWindow::on_startButton_clicked()
 {
+    ui->blueButton->setEnabled(true);
+    ui->redButton->setEnabled(true);
+    ui->startButton->setEnabled(false);
+    emit on_startButton_clicked_signal();
+}
 
-    std::cout<<"New Sequence: "<<simonsSeq<<std::endl;
-    ui->redButton->setEnabled(false);
-    ui->blueButton->setEnabled(false);
-    simonsSeqIndex = 0;
-    timer->start(1000);
+
+void MainWindow::on_redButton_clicked()
+{
+    emit on_redButton_clicked_signal();
+    std::cout<<"signal sent for red button"<<std::endl;
+
+}
+
+void MainWindow::on_blueButton_clicked()
+{
+    emit on_blueButton_clicked_signal();
+    std::cout<<"signal sent for blue button"<<std::endl;
+
+}
+
+void MainWindow::on_seqTestButton_clicked()
+{
+    emit on_seqTestButton_clicked_signal();
+    std::cout<<"signal sent for seqTest button"<<std::endl;
 
 }
 
@@ -63,15 +78,4 @@ void MainWindow::scheduledLightCallback()
         ui->blueButton->setStyleSheet( QString("QPushButton::!enabled {background-color: rgb(0,0,255);} QPushButton{border:none;background-color:rgb(119, 119, 255);border-radius:85px;}} QPushButton:enabled{border:none; background-color:rgb(0, 0, 255); border-radius:85px;} QPushButton:pressed {border-radius:70px; background-color:rgb(119, 119, 255);}"));
     }
     simonsSeqIndex++;
-}
-
-// //Adds a 1 or 0 at the end of the string (pattern) as the player is advancing through
-void MainWindow::add_to_pattern()
-{
-    std::random_device rd;
-    std::mt19937 rng(rd());
-    std::uniform_int_distribution<int> distribution(0, 1);
-    int random_number = distribution(rng);
-    std::string newRandomGeneratedChar = std::to_string(random_number);
-    simonsSeq += newRandomGeneratedChar;
 }
