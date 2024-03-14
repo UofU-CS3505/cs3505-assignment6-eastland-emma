@@ -3,8 +3,8 @@
 
 #include <QMainWindow>
 #include <QTimer>
-#include <QWidget>
 #include <QKeyEvent>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -17,8 +17,25 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow( QWidget *parent = nullptr);
     ~MainWindow();
+    void handler_turn_red_Lights();
+    void handler_turn_blue_Lights();
+    void handler_lose_Screen();
+
+public slots:
+    ///REMOVE BEFORE TURN IN
+    void on_seqTestButton_clicked();
+    ///@brief called by the timer object in order to light once every second
+    void scheduledLightCallback();
+    void playSequence();
+
+signals:
+
+    void on_redButton_clicked_signal();
+    void on_blueButton_clicked_signal();
+    void on_seqTestButton_clicked_signal();
+    void on_startButton_clicked_signal();
 
 private slots:
     ///@brief adds a red indicator to the user's sequence and compares against the simon function to see if it is correct
@@ -27,6 +44,7 @@ private slots:
     void on_blueButton_clicked();
     ///@brief starts the game logic
     void on_startButton_clicked();
+
 
 private:
     Ui::MainWindow *ui;
@@ -44,17 +62,6 @@ private:
     //Controls time for the simon light function
     QTimer* timer;
     int count;
-
-    //private helpers
-
-    ///@brief temporarily disables the users buttons and plays the current simon sequence to the user in 1 second intervals
-    void playSequence();
-
-    ///@brief called by the timer object in order to light once every second
-    void scheduledLightCallback();
-
-    ///@brief adds a new character, either '1' or '0', to the existing simon's sequence
-    void add_to_pattern();
 
 protected:
     ///@brief overrides key inputs and allows the user to use either AD or<> keys to select buttons
