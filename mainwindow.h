@@ -2,8 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "model.h"
 #include <QTimer>
+#include <QKeyEvent>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -18,8 +19,11 @@ class MainWindow : public QMainWindow
 public:
     MainWindow( QWidget *parent = nullptr);
     ~MainWindow();
+    //handler for turning red lights signal
     void handler_turn_red_Lights();
+    //handler for turning blue lights signal
     void handler_turn_blue_Lights();
+    //handler for losing screen
     void handler_lose_Screen();
 
 public slots:
@@ -27,12 +31,17 @@ public slots:
     void on_seqTestButton_clicked();
     ///@brief called by the timer object in order to light once every second
     void scheduledLightCallback();
+    //handler for playing the sequence that the player has to follow
+    void playSequence();
 
 signals:
-
+    //signal for pressing the red button
     void on_redButton_clicked_signal();
+    //signal for pressing the blue button
     void on_blueButton_clicked_signal();
+
     void on_seqTestButton_clicked_signal();
+    //signal for pressing the start button
     void on_startButton_clicked_signal();
 
 private slots:
@@ -42,6 +51,7 @@ private slots:
     void on_blueButton_clicked();
     ///@brief starts the game logic
     void on_startButton_clicked();
+
 
 private:
     Ui::MainWindow *ui;
@@ -58,6 +68,10 @@ private:
 
     //Controls time for the simon light function
     QTimer* timer;
+    int count;
 
+protected:
+    ///@brief overrides key inputs and allows the user to use either AD or<> keys to select buttons
+    void keyPressEvent(QKeyEvent *event) override;
 };
 #endif // MAINWINDOW_H

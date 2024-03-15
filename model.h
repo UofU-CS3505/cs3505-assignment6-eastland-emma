@@ -12,21 +12,29 @@ public:
     ~Model();
 
 public slots:
+    //handler for adding pattern
     void add_to_pattern();
-    void start_sequence();
+    //handler for pressing the red button signal
     void handle_redButton_signal();
+    //handler for pressing the blue button signal
     void handle_blueButton_signal();
+    //handler for pressing the start button signal
     void handle_startButton_signal();
-    void handle_testseqButton_signal();
-
 
 signals:
+    //signal for turning the red light
     void turn_redLight_signal();
+    //signal for turning the blue light
     void turn_blueLight_signal();
+    //signal that indicates when the sequence has finished
     void finish_display_sequence_signal();
+    //signal for when the player loses
     void lose_screen_signal();
+    //signal for playing the sequence that the player has to follow
+    void playSequence_signal();
 
 private:
+    //UI for modifying the ui file
     Ui::MainWindow *ui;
 
     //Holds the current index of the simon sequence. Used in the play sequence and scheduled light callback methods
