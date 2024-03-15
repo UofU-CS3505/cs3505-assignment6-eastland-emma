@@ -16,7 +16,6 @@ public slots:
     void handle_redButton_signal();
     void handle_blueButton_signal();
     void handle_startButton_signal();
-    void handle_testseqButton_signal();
 
 
 
@@ -30,7 +29,6 @@ signals:
     void exitLights_signal();
     void enable_buttons_signal();
     void disable_buttons_signal();
-
 
 private:
     Ui::MainWindow *ui;

@@ -27,15 +27,10 @@ public:
     void handler_enable_buttons();
     void handler_disable_buttons();
 
-public slots:
-    ///REMOVE BEFORE TURN IN
-    void on_seqTestButton_clicked();
-
 signals:
 
     void on_redButton_clicked_signal();
     void on_blueButton_clicked_signal();
-    void on_seqTestButton_clicked_signal();
     void on_startButton_clicked_signal();
 
 
