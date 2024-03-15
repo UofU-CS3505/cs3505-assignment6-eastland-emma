@@ -19,30 +19,25 @@ class MainWindow : public QMainWindow
 public:
     MainWindow( QWidget *parent = nullptr);
     ~MainWindow();
-    //handler for turning red lights signal
     void handler_turn_red_Lights();
-    //handler for turning blue lights signal
     void handler_turn_blue_Lights();
-    //handler for losing screen
+    void handler_turn_off_Lights();
     void handler_lose_Screen();
+    void handler_exitLights();
+    void handler_enable_buttons();
+    void handler_disable_buttons();
 
 public slots:
     ///REMOVE BEFORE TURN IN
     void on_seqTestButton_clicked();
-    ///@brief called by the timer object in order to light once every second
-    void scheduledLightCallback();
-    //handler for playing the sequence that the player has to follow
-    void playSequence();
 
 signals:
-    //signal for pressing the red button
-    void on_redButton_clicked_signal();
-    //signal for pressing the blue button
-    void on_blueButton_clicked_signal();
 
+    void on_redButton_clicked_signal();
+    void on_blueButton_clicked_signal();
     void on_seqTestButton_clicked_signal();
-    //signal for pressing the start button
     void on_startButton_clicked_signal();
+
 
 private slots:
     ///@brief adds a red indicator to the user's sequence and compares against the simon function to see if it is correct

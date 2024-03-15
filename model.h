@@ -12,29 +12,27 @@ public:
     ~Model();
 
 public slots:
-    //handler for adding pattern
     void add_to_pattern();
-    //handler for pressing the red button signal
     void handle_redButton_signal();
-    //handler for pressing the blue button signal
     void handle_blueButton_signal();
-    //handler for pressing the start button signal
     void handle_startButton_signal();
+    void handle_testseqButton_signal();
+
+
 
 signals:
-    //signal for turning the red light
     void turn_redLight_signal();
-    //signal for turning the blue light
     void turn_blueLight_signal();
-    //signal that indicates when the sequence has finished
     void finish_display_sequence_signal();
-    //signal for when the player loses
     void lose_screen_signal();
-    //signal for playing the sequence that the player has to follow
     void playSequence_signal();
+    void turn_offLight_signal();
+    void exitLights_signal();
+    void enable_buttons_signal();
+    void disable_buttons_signal();
+
 
 private:
-    //UI for modifying the ui file
     Ui::MainWindow *ui;
 
     //Holds the current index of the simon sequence. Used in the play sequence and scheduled light callback methods
@@ -42,12 +40,17 @@ private:
     //Holds the index we are comparing on the user's sequence
     int usersSeqIndex;
 
+    int count;
+
     //Holds the correct simon sequence
     std::string simonsSeq;
     //Holds the user's simon sequence
     std::string usersSeq;
     //Controls time for the simon light function
     QTimer* timer;
+    //triggered by timer
+    void scheduledLightCallback();
+    void playSequence();
 };
 
 #endif // MODEL_H

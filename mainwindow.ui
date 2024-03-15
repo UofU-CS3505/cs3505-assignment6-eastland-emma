@@ -157,8 +157,8 @@ QPushButton:pressed{
         <colorrole role="Button">
          <brush brushstyle="SolidPattern">
           <color alpha="255">
-           <red>170</red>
-           <green>167</green>
+           <red>119</red>
+           <green>119</green>
            <blue>255</blue>
           </color>
          </brush>
@@ -166,8 +166,8 @@ QPushButton:pressed{
         <colorrole role="Base">
          <brush brushstyle="SolidPattern">
           <color alpha="255">
-           <red>170</red>
-           <green>167</green>
+           <red>119</red>
+           <green>119</green>
            <blue>255</blue>
           </color>
          </brush>
@@ -175,8 +175,8 @@ QPushButton:pressed{
         <colorrole role="Window">
          <brush brushstyle="SolidPattern">
           <color alpha="255">
-           <red>170</red>
-           <green>167</green>
+           <red>119</red>
+           <green>119</green>
            <blue>255</blue>
           </color>
          </brush>
@@ -192,12 +192,12 @@ QPushButton:pressed{
      <property name="styleSheet">
       <string notr="true">QPushButton{
 	border:none;
-	background-color:rgb(170, 167, 255);
+	background-color:rgb(0, 0, 255);
 	border-radius:85px;
 }
 QPushButton:!enabled{
 	border:none;
-	background-color:rgb(170, 167, 255);
+	background-color:rgb(119, 119, 255);
 	border-radius:85px;
 }
 QPushButton:enabled{
@@ -207,7 +207,7 @@ QPushButton:enabled{
 }
 QPushButton:pressed{
 	border-radius:70px;
-	background-color:rgb(170, 167, 255);
+	background-color:rgb(119, 119, 255);
 }</string>
      </property>
      <property name="text">
@@ -281,7 +281,7 @@ QPushButton:pressed{
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>
