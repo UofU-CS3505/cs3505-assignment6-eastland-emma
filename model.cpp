@@ -1,6 +1,7 @@
 #include "model.h"
 #include "ui_mainwindow.h"
 #include <random>
+#include <iostream>
 /* Model for Simmon -Assign06 CS3505
  * @author Emma Eastland and Johnny Song
  */
@@ -20,16 +21,19 @@ Model::Model(QWidget *parent)
             &QTimer::timeout,
             this,
             &Model::scheduledLightCallback);
-
+    interval = 550;
 }
 void Model::playSequence()
 {
+    std::cout<<interval<<std::endl;
+    if(interval>50)
+        interval+=-50;
     //Disable buttons so the user can't modify the sequence
     emit disable_buttons_signal();
 
     simonsSeqIndex = 0;
     //Start timer to get the callback running
-    timer->start(500);
+    timer->start(interval);
 }
 
 Model::~Model()

@@ -56,6 +56,7 @@ private:
     //Holds a count. Needed for the timer to send lighting signals correctly
     int count;
 
+    int interval;
     //Holds the correct simon sequence
     std::string simonsSeq;
     //Holds the user's simon sequence

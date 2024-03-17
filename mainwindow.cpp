@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <iostream>
 /* View and Controller for Simmon -Assign06 CS3505
  * @author Emma Eastland and Johnny Song
  */
@@ -87,30 +86,29 @@ void MainWindow::handler_lose_Screen()
 
 void MainWindow::handler_update_progress(int newProg)
 {
-    std::cout<<newProg<<std::endl;
     ui->progressBar->setValue(newProg);
 }
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     //Support for Arrow Keys
-    if(event->key() == Qt::Key_Right)
+    if(event->key() == Qt::Key_Right&&ui->blueButton->isEnabled())
     {
         ui->blueButton->setStyleSheet( QString("QPushButton{border:none;background-color:rgb(119, 119, 255);border-radius:75px;}"));
         on_blueButton_clicked();
     }
-    if(event->key() == Qt::Key_Left)
+    if(event->key() == Qt::Key_Left&&ui->redButton->isEnabled())
     {
         ui->redButton->setStyleSheet( QString("QPushButton{border:none;background-color:rgb(255, 119, 119);border-radius:75px;}"));
         on_redButton_clicked();
     }
 
     //Support for WASD
-    if(event->key() == Qt::Key_A)
+    if(event->key() == Qt::Key_A&&ui->redButton->isEnabled())
     {
         ui->redButton->setStyleSheet( QString("QPushButton{border:none;background-color:rgb(255, 119, 119);border-radius:75px;}"));
         on_redButton_clicked();
     }
-    if(event->key() == Qt::Key_D)
+    if(event->key() == Qt::Key_D&&ui->blueButton->isEnabled())
     {
         ui->blueButton->setStyleSheet( QString("QPushButton{border:none;background-color:rgb(119, 119, 255);border-radius:75px;}"));
         on_blueButton_clicked();
