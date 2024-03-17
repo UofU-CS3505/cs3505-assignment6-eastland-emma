@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <iostream>
 /* View and Controller for Simmon -Assign06 CS3505
  * @author Emma Eastland and Johnny Song
  */
@@ -84,6 +85,11 @@ void MainWindow::handler_lose_Screen()
     ui->gameOverLabel->setText("Game Over- Press start to try again");
 }
 
+void MainWindow::handler_update_progress(int newProg)
+{
+    std::cout<<newProg<<std::endl;
+    ui->progressBar->setValue(newProg);
+}
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     //Support for Arrow Keys

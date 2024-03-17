@@ -24,6 +24,7 @@ int main(int argc, char *argv[])
     QObject::connect(&receiver, &Model::lose_screen_signal, &emitter, &MainWindow::handler_lose_Screen);
     QObject::connect(&receiver, &Model::turn_offLight_signal, &emitter, &MainWindow::handler_turn_off_Lights);
     QObject::connect(&receiver, &Model::reset_for_keys, &emitter, &MainWindow::handler_reset_buttons_for_keys);
+    QObject::connect(&receiver, &Model::update_progress_signal, &emitter, &MainWindow::handler_update_progress);
 
 
     emitter.show();

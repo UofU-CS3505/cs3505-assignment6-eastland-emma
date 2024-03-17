@@ -43,6 +43,7 @@ signals:
     ///Notifies the view to enable the start button & disable the play btns
     void disable_buttons_signal();
     void reset_for_keys();
+    void update_progress_signal(int newProg);
 
 private:
     Ui::MainWindow *ui;

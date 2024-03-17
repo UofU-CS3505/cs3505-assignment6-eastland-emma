@@ -41,7 +41,10 @@ void Model::handle_redButton_signal()
 {
     //add to the user sequence
     usersSeq += '0';
-
+    int uLength = usersSeq.length();
+    int sLength = simonsSeq.length();
+    int prog = int((uLength/(double)sLength)*100);
+    emit update_progress_signal(prog);
     //Checks if the user clicked the correct button
     if(simonsSeq.at(usersSeqIndex)== usersSeq.at(usersSeqIndex))
     {
@@ -78,8 +81,12 @@ void Model::handle_redButton_signal()
 
 void Model::handle_blueButton_signal()
 {
+    //add to the user sequence
     usersSeq += '1';
-
+    int uLength = usersSeq.length();
+    int sLength = simonsSeq.length();
+    int prog = int((uLength/(double)sLength)*100);
+    emit update_progress_signal(prog);
     //Checks if the user clicked the correct button
     if(simonsSeq.at(usersSeqIndex) == usersSeq.at(usersSeqIndex))
     {
@@ -150,6 +157,7 @@ void Model::scheduledLightCallback()
     if(simonsSeqIndex >= static_cast<int>(simonsSeq.length()))//Finished iteration
     {
         timer->stop();
+        emit update_progress_signal(0);
         emit exitLights_signal();//enables the buttons so the user can play again
         count =0;
         return;

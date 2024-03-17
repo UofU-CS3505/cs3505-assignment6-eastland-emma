@@ -230,6 +230,19 @@ QPushButton:pressed{
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
+    <widget class="QProgressBar" name="progressBar">
+     <property name="geometry">
+      <rect>
+       <x>320</x>
+       <y>100</y>
+       <width>118</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="value">
+      <number>0</number>
+     </property>
+    </widget>
    </widget>
    <widget class="QMenuBar" name="menubar_2">
     <property name="geometry">

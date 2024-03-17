@@ -36,6 +36,7 @@ public:
     ///Deactivates the play buttons for the user on signal
     void handler_disable_buttons();
     void handler_reset_buttons_for_keys();
+    void handler_update_progress(int newProg);
 
 signals:
     ///Notifies the model that the red button was pressed
