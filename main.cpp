@@ -3,6 +3,9 @@
 #include <QApplication>
 /* Main for Simmon -Assign06 CS3505
  * @author Emma Eastland and Johnny Song
+ * github users: eastland-emma and JohnnySongZ
+ * https://github.com/UofU-CS3505/cs3505-assignment6-eastland-emma.git
+ * Creative Element/Addition: support for arrow keys and WASD for the game.
  */
 int main(int argc, char *argv[])
 {
