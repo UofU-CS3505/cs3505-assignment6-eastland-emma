@@ -1,7 +1,6 @@
 #include "model.h"
 #include "ui_mainwindow.h"
 #include <random>
-#include <iostream>
 /* Model for Simmon -Assign06 CS3505
  * @author Emma Eastland and Johnny Song
  */
@@ -25,7 +24,7 @@ Model::Model(QWidget *parent)
 }
 void Model::playSequence()
 {
-    std::cout<<interval<<std::endl;
+    //Reduce timer
     if(interval>50)
         interval+=-50;
     //Disable buttons so the user can't modify the sequence
