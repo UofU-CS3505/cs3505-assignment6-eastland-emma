@@ -75,6 +75,7 @@ void Model::handle_redButton_signal()
         usersSeq="";
         usersSeqIndex = 0;
         simonsSeqIndex = 0;
+        interval = 550;
         emit reset_for_keys();
         //Game over pop-up
         emit lose_screen_signal();
@@ -117,6 +118,7 @@ void Model::handle_blueButton_signal()
         usersSeq="";
         usersSeqIndex = 0;
         simonsSeqIndex = 0;
+        interval = 550;
         //Game over pop-up
         emit reset_for_keys();
         emit lose_screen_signal();
